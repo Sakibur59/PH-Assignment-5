@@ -74,38 +74,52 @@
     </header>
 
     <main class="bg-[#F8FAFC] pt-10">
-      <section class="max-w-[1110px] mx-auto py-4 shadow-sm rounded-md bg-white">
+      <section
+        class="max-w-[1110px] mx-auto py-4 shadow-sm rounded-md bg-white"
+      >
         <div class="p-4">
-          <button class="btn w-[120px] bg-[#4A00FF] text-white ">ALL</button>
-          <button class="btn w-[120px] ">Open</button>
-          <button class="btn w-[120px] ">Closed</button>
+          <button class="btn w-[120px] bg-[#4A00FF] text-white">ALL</button>
+          <button class="btn w-[120px]">Open</button>
+          <button class="btn w-[120px]">Closed</button>
         </div>
       </section>
-    <section class="max-w-[1110px] mx-auto my-4 p-6 shadow-sm rounded-md bg-white">
+      <section
+        class="max-w-[1110px] mx-auto my-4 p-6 shadow-sm rounded-md bg-white"
+      >
         <div class="flex justify-between">
-            <div class="flex gap-3">
-                <div class="bg-[#ECE4FF] rounded-full w-[50px] h-[50px] flex justify-center items-center ">
-                <img src="assets/Aperture.png" alt="" class="w-[32px] h-[32px]">
-                </div>
-                <div>
-                <p class="font-semibold text-[#1F2937] text-[20px]"><span>0</span> Issues</p>
-                <p class="text-[#64748B]">Track and manage your project issues</p>
-                </div>
+          <div class="flex gap-3">
+            <div
+              class="bg-[#ECE4FF] rounded-full w-[50px] h-[50px] flex justify-center items-center"
+            >
+              <img src="assets/Aperture.png" alt="" class="w-[32px] h-[32px]" />
             </div>
-            <div class="flex gap-5">
-                <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                    <span>Open</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 bg-purple-500 rounded-full"></span>
-                    <span>Closed</span>
-                </div>
+            <div>
+              <p class="font-semibold text-[#1F2937] text-[20px]">
+                <span id="total-issues">0</span> Issues
+              </p>
+              <p class="text-[#64748B]">Track and manage your project issues</p>
             </div>
+          </div>
+          <div class="flex gap-5">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+              <span>Open</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 bg-purple-500 rounded-full"></span>
+              <span>Closed</span>
+            </div>
+          </div>
         </div>
-       
-        
       </section>
     </main>
+
+      <section
+        id="issues-container"
+        class="max-w-[1110px] mx-auto  py-10 shadow-sm rounded-md  grid grid-cols-4 gap-3 "
+      >
+      </section>
+
+    <script src="JS/script.js"></script>
   </body>
 </html>
