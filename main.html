@@ -78,9 +78,9 @@
         class="max-w-[1110px] mx-auto py-4 shadow-sm rounded-md bg-white"
       >
         <div class="p-4">
-          <button class="btn w-[120px] bg-[#4A00FF] text-white">ALL</button>
-          <button class="btn w-[120px]">Open</button>
-          <button class="btn w-[120px]">Closed</button>
+          <button id="all-btn" onclick="toggle('all-btn')"  class="btn w-[120px] bg-[#4A00FF] text-white ">ALL</button>
+          <button id="open-btn" onclick="toggle('open-btn')" class="btn w-[120px] ">Open</button>
+          <button id="close-btn" onclick="toggle('close-btn')" class="btn w-[120px] ">Closed</button>
         </div>
       </section>
       <section
@@ -116,6 +116,12 @@
 
       <section
         id="issues-container"
+        class="max-w-[1110px] mx-auto  py-10 shadow-sm rounded-md  grid grid-cols-4 gap-3 "
+      >
+      </section>
+
+      <section
+        id="open-container"
         class="max-w-[1110px] mx-auto  py-10 shadow-sm rounded-md  grid grid-cols-4 gap-3 "
       >
       </section>

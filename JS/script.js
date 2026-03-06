@@ -1,13 +1,17 @@
-const loadData = () => {
+let all = [];
+let loadData = () => {
   fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
     .then((res) => res.json())
-    .then((json) => displayALLIssues(json.data));
+    .then((json) => {
+        all=json.data;
+        displayALLIssues(all);
+    });
 };
 const totalIssues = document.getElementById("total-issues");
 
 const displayALLIssues = (issues) => {
   const issuesContainer = document.getElementById("issues-container");
-  //   issuesContainer.innerHTML = "";
+    issuesContainer.innerHTML = "";
   issues.forEach((issue) => {
     const lvl =
       issue.labels
@@ -56,5 +60,44 @@ const displayALLIssues = (issues) => {
     totalIssues.innerText = issues.length;
   });
 };
+
+
+
+let allBtn = document.getElementById("all-btn");
+let openBtn = document.getElementById("open-btn");
+let closeBtn = document.getElementById("close-btn");
+
+function toggle(id) {
+  allBtn.classList.remove( "bg-[#4A00FF]" ,"text-white");
+  openBtn.classList.remove( "bg-[#4A00FF]" ,"text-white");
+  closeBtn.classList.remove( "bg-[#4A00FF]" ,"text-white");
+
+  allBtn.classList.add("bg-white", "text-[#64748B]");
+  openBtn.classList.add("bg-white", "text-[#64748B]");
+  closeBtn.classList.add("bg-white", "text-[#64748B]");
+
+  let selected = document.getElementById(id);
+  selected.classList.remove("bg-white", "text-[#64748B]", "border-gray-300");
+  selected.classList.add("bg-[#4A00FF]", "text-white");
+
+  if(id === 'open-btn'){
+     openIssueList();
+  } else if(id === 'all-btn'){
+     displayALLIssues(all);
+  }
+  if(id === 'close-btn'){
+     closeIssueList();
+  }
+}
+
+const openIssueList = () =>{
+    const openIssue = all.filter(item => item.status === 'open');
+    displayALLIssues(openIssue);
+}
+
+const closeIssueList = () =>{
+    const closeIssue = all.filter(item => item.status === 'closed');
+    displayALLIssues(closeIssue);
+}
 
 loadData();
