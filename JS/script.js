@@ -1,10 +1,12 @@
 let all = [];
 let loadData = () => {
+  manageLoading();
   fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
     .then((res) => res.json())
     .then((json) => {
       all = json.data;
       displayALLIssues(all);
+      hideLoading();
     });
 };
 
@@ -15,6 +17,28 @@ const loadIssuesDetails = async (id) =>{
   displayIssuesDetails(details.data);
 
 };
+
+function manageLoading () {
+  document.getElementById("loading-bar").classList.remove('hidden');
+}
+function hideLoading(){
+  document.getElementById("loading-bar").classList.add('hidden');
+}
+
+// const manageLoading = (status) =>{
+//     if(status == true){
+//       document.getElementById("loading-bar").classList.remove('hidden');
+//       document.getElementById("all-btn").classList.add('hidden');
+//       document.getElementById("open-btn").classList.add('hidden');
+//       document.getElementById("close-btn").classList.add('hidden');
+//     } else {
+//        document.getElementById("all-btn").classList.remove('hidden');
+//        document.getElementById("open-btn").classList.remove('hidden');
+//        document.getElementById("close-btn").classList.remove('hidden');
+//       document.getElementById("loading-bar").classList.add('hidden');
+//     }
+// }
+
 const displayIssuesDetails=(issue) =>{
   const issuesBox = document.getElementById("details-container");
 
@@ -62,7 +86,7 @@ const displayIssuesDetails=(issue) =>{
 
             <ul class="flex gap-8 list-disc">
               <li class="list-none ${textStatus} ${colorStatus} rounded-md px-4 py-1">${issue.status}</li>
-              <li class="text-[#64748B]">Opened by Fahim Ahmed</li>
+              <li class="text-[#64748B]">Opened by Md Sakibur </li>
               <li class="text-[#64748B]">22/02/2026</li>
             </ul>
 
@@ -88,6 +112,7 @@ const displayIssuesDetails=(issue) =>{
 const totalIssues = document.getElementById("total-issues");
 
 const displayALLIssues = (issues) => {
+  
   const issuesContainer = document.getElementById("issues-container");
   issuesContainer.innerHTML = "";
   issues.forEach((issue) => {
@@ -112,22 +137,7 @@ const displayALLIssues = (issues) => {
         })
         .join("") || "";
 
-        let textStatus = "text-white"
-        let colorStatus = "bg-[#00A96E]"
-       
-        if(issue.status === 'closed'){
-          textStatus = "text-white"
-          colorStatus = "bg-red-500"
-          
-        }
-        let colorStatus1 = "bg-[#EF4444]"
-        if(issue.priority === 'medium'){
-          colorStatus1 = "bg-[#F59E0B]"
-        }
 
-        if(issue.priority === 'low'){
-          colorStatus1 = "bg-[#9CA3AF]"
-        }
 
 
     let border = "border-[#00A96E]";
@@ -155,6 +165,7 @@ const displayALLIssues = (issues) => {
     issuesContainer.append(issueDiv);
     totalIssues.innerText = issues.length;
   });
+  
 };
 
 let allBtn = document.getElementById("all-btn");
@@ -176,14 +187,20 @@ function toggle(id) {
 
   if (id === "open-btn") {
     openIssueList();
+   
   } else if (id === "all-btn") {
-    displayALLIssues(all);
+    manageLoading();
+    setTimeout(()=>{
+      displayALLIssues(all);
+      hideLoading();
+    },100)
   } else if (id === "close-btn") {
     closeIssueList();
   }
 }
 
 const displayOpenIssuesList = (issues) => {
+  
   const issuesContainer = document.getElementById("issues-container");
   issuesContainer.innerHTML = "";
   issues.forEach((issue) => {
@@ -231,11 +248,17 @@ const displayOpenIssuesList = (issues) => {
 };
 
 const openIssueList = () => {
-  const openIssue = all.filter((item) => item.status === "open");
-  displayOpenIssuesList(openIssue);
+  manageLoading();
+  setTimeout(()=>{
+
+    const openIssue = all.filter((item) => item.status === "open");
+    displayOpenIssuesList(openIssue);
+    hideLoading();
+  },100)
 };
 
 const displayCloseIssuesList = (issues) => {
+  
   const issuesContainer = document.getElementById("issues-container");
   issuesContainer.innerHTML = "";
   issues.forEach((issue) => {
@@ -283,8 +306,13 @@ const displayCloseIssuesList = (issues) => {
 };
 
 const closeIssueList = () => {
-  const closeIssue = all.filter((item) => item.status === "closed");
-  displayCloseIssuesList(closeIssue);
+  manageLoading();
+  setTimeout(()=>{
+
+    const closeIssue = all.filter((item) => item.status === "closed");
+    displayCloseIssuesList(closeIssue);
+    hideLoading();
+  },100)
 };
 
 loadData();
