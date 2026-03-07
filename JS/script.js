@@ -7,6 +7,65 @@ let loadData = () => {
       displayALLIssues(all);
     });
 };
+
+const loadIssuesDetails = async (id) =>{
+  const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`;
+  const res = await fetch(url);
+  const details = await res.json();
+  displayIssuesDetails(details.data);
+
+};
+const displayIssuesDetails=(issue) =>{
+  const issuesBox = document.getElementById("details-container");
+  const lvl =
+      issue.labels
+        .map((label) => {
+          if (label === "enhancement") {
+            return `<span class="text-[green] border rounded-md px-3 py-1 ">${label.toUpperCase()}</span>`;
+          }
+          if (label === "bug") {
+            return `<span class="text-[#EF4444] border rounded-md px-3 py-1 ">${label.toUpperCase()}</span>`;
+          }
+          if (label === "help wanted") {
+            return `<span class="text-[#D97706] px-3 py-1 border rounded-md ">${label.toUpperCase()}</span>`;
+          }
+          if (label === "good first issue") {
+            return `<span class="text-[green] border rounded-md px-3 py-1 ">${label.toUpperCase()}</span>`;
+          }
+          if (label === "documentation") {
+            return `<span class="text-[#D97706] border rounded-md px-3 py-1 ">${label.toUpperCase()}</span>`;
+          }
+        })
+        .join("") || "";
+  issuesBox.innerHTML = `
+  <div>
+            <h3 class="font-bold text-[24px]">${issue.title}</h3>
+
+            <ul class="flex gap-8 list-disc">
+              <li class="list-none">${issue.status}</li>
+              <li class="text-[#64748B]">Opened by Fahim Ahmed</li>
+              <li class="text-[#64748B]">22/02/2026</li>
+            </ul>
+
+            <div class="flex flex-wrap gap-2 text-[12px] mt-5">${lvl}</div>
+
+            <p class="text-[#64748B] mt-4">${issue.description}</p>
+
+            <div class="flex justify-between mt-6">
+              <div>
+                <p class="text-[#64748B]">Assignee:</p>
+                <p class="text-[#1F2937] font-semibold">${issue.assignee ? issue.assignee : "Unassigned"}</p>
+              </div>
+              <div>
+                <p class="text-[#64748B]">Priority:</p>
+                <p class="text-[red] font-semibold">${issue.priority}</p>
+              </div>
+            </div>
+          </div>
+  `
+  document.getElementById("issue_modal").showModal();
+}
+
 const totalIssues = document.getElementById("total-issues");
 
 const displayALLIssues = (issues) => {
@@ -44,7 +103,7 @@ const displayALLIssues = (issues) => {
 
     const issueDiv = document.createElement("div");
     issueDiv.innerHTML = `
-        <div class="p-4 space-y-3 shadow-sm border-t-4 ${border} rounded-md">
+        <div onclick="loadIssuesDetails(${issue.id})" class="p-4 space-y-3 shadow-sm border-t-4 ${border} rounded-md">
           <div class="flex justify-between">
             <img src=${logo} alt="" />
             <p class="text-[#EF4444] ">${issue.priority}</p>
@@ -117,7 +176,7 @@ const displayOpenIssuesList = (issues) => {
 
     const issueDiv = document.createElement("div");
     issueDiv.innerHTML = `
-        <div class="p-4 space-y-3 shadow-sm border-t-4 ${border} rounded-md">
+        <div onclick="loadIssuesDetails(${issue.id})" class="p-4 space-y-3 shadow-sm border-t-4 ${border} rounded-md">
           <div class="flex justify-between">
             <img src=${logo} alt="" />
             <p class="text-[#EF4444] ">${issue.priority}</p>
@@ -169,7 +228,7 @@ const displayCloseIssuesList = (issues) => {
 
     const issueDiv = document.createElement("div");
     issueDiv.innerHTML = `
-        <div class="p-4 space-y-3 shadow-sm border-t-4 ${border} rounded-md">
+        <div onclick="loadIssuesDetails(${issue.id})" class="p-4 space-y-3 shadow-sm border-t-4 ${border} rounded-md">
           <div class="flex justify-between">
             <img src=${logo} alt="" />
             <p class="text-[#EF4444] ">${issue.priority}</p>
