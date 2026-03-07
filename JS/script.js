@@ -25,19 +25,7 @@ function hideLoading(){
   document.getElementById("loading-bar").classList.add('hidden');
 }
 
-// const manageLoading = (status) =>{
-//     if(status == true){
-//       document.getElementById("loading-bar").classList.remove('hidden');
-//       document.getElementById("all-btn").classList.add('hidden');
-//       document.getElementById("open-btn").classList.add('hidden');
-//       document.getElementById("close-btn").classList.add('hidden');
-//     } else {
-//        document.getElementById("all-btn").classList.remove('hidden');
-//        document.getElementById("open-btn").classList.remove('hidden');
-//        document.getElementById("close-btn").classList.remove('hidden');
-//       document.getElementById("loading-bar").classList.add('hidden');
-//     }
-// }
+
 
 const displayIssuesDetails=(issue) =>{
   const issuesBox = document.getElementById("details-container");
@@ -193,7 +181,7 @@ function toggle(id) {
     setTimeout(()=>{
       displayALLIssues(all);
       hideLoading();
-    },100)
+    },50)
   } else if (id === "close-btn") {
     closeIssueList();
   }
@@ -254,7 +242,7 @@ const openIssueList = () => {
     const openIssue = all.filter((item) => item.status === "open");
     displayOpenIssuesList(openIssue);
     hideLoading();
-  },100)
+  },50)
 };
 
 const displayCloseIssuesList = (issues) => {
@@ -312,7 +300,7 @@ const closeIssueList = () => {
     const closeIssue = all.filter((item) => item.status === "closed");
     displayCloseIssuesList(closeIssue);
     hideLoading();
-  },100)
+  },50)
 };
 
 loadData();
