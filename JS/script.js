@@ -17,6 +17,7 @@ const loadIssuesDetails = async (id) =>{
 };
 const displayIssuesDetails=(issue) =>{
   const issuesBox = document.getElementById("details-container");
+
   const lvl =
       issue.labels
         .map((label) => {
@@ -37,12 +38,30 @@ const displayIssuesDetails=(issue) =>{
           }
         })
         .join("") || "";
+
+        let textStatus = "text-white"
+        let colorStatus = "bg-[#00A96E]"
+       
+        if(issue.status === 'closed'){
+          textStatus = "text-white"
+          colorStatus = "bg-red-500"
+          
+        }
+        let colorStatus1 = "bg-[#EF4444]"
+        if(issue.priority === 'medium'){
+          colorStatus1 = "bg-[#F59E0B]"
+        }
+
+        if(issue.priority === 'low'){
+          colorStatus1 = "bg-[#9CA3AF]"
+        }
+
   issuesBox.innerHTML = `
   <div>
             <h3 class="font-bold text-[24px]">${issue.title}</h3>
 
             <ul class="flex gap-8 list-disc">
-              <li class="list-none">${issue.status}</li>
+              <li class="list-none ${textStatus} ${colorStatus} rounded-md px-4 py-1">${issue.status}</li>
               <li class="text-[#64748B]">Opened by Fahim Ahmed</li>
               <li class="text-[#64748B]">22/02/2026</li>
             </ul>
@@ -58,7 +77,7 @@ const displayIssuesDetails=(issue) =>{
               </div>
               <div>
                 <p class="text-[#64748B]">Priority:</p>
-                <p class="text-[red] font-semibold">${issue.priority}</p>
+                <p class="text-white ${colorStatus1} font-semibold px-2 py-1 rounded-md">${issue.priority}</p>
               </div>
             </div>
           </div>
@@ -92,6 +111,24 @@ const displayALLIssues = (issues) => {
           }
         })
         .join("") || "";
+
+        let textStatus = "text-white"
+        let colorStatus = "bg-[#00A96E]"
+       
+        if(issue.status === 'closed'){
+          textStatus = "text-white"
+          colorStatus = "bg-red-500"
+          
+        }
+        let colorStatus1 = "bg-[#EF4444]"
+        if(issue.priority === 'medium'){
+          colorStatus1 = "bg-[#F59E0B]"
+        }
+
+        if(issue.priority === 'low'){
+          colorStatus1 = "bg-[#9CA3AF]"
+        }
+
 
     let border = "border-[#00A96E]";
     let logo = "./assets/Open-Status.png";
